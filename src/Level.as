@@ -15,7 +15,7 @@ package
 		public var ramps:FlxGroup;
 		public var robots:FlxGroup;
 		public var checkpoints:FlxGroup;
-		public var checkpoint:CheckPoint;
+		//public var checkpoint:CheckPoint;
 		private var levelNumber:int;
 		public var lastCheckpointPos:int;
 		public var scoreMultipliers:FlxGroup;
@@ -71,6 +71,7 @@ package
 			 < = ramp
 			 ` = empty space
 			 w = wall dropper
+			 | = checkpoint
 			 
 			 */
 			 
@@ -86,20 +87,6 @@ package
 			for (var i = 0; i < levelLength; i++)
 			{
 				
-				
-				/*
-				 * FOR NEXT TIME:
-					 * I need to load a level for each piece. There is nothing the does't have a floor
-					 * underneath it. So always load a floor. You got this for the most part. 
-					 * Good start. Follow the steps you took for the floor to create walls next.
-					 * Then do the other objects. Save robots and wall droppers for last.
-					 * Their placement will be tougher than the rest. 
-					 * 
-					 * Dream. 
-					 * 
-				 * */
-				
-				trace(i);
 				var xPos:int = i * P_LEN;
 				var pieceChar = levelString.charAt(i);
 				switch(pieceChar)
@@ -118,7 +105,7 @@ package
 					case "<":
 						this.addRamp(xPos);
 						break;
-					case "/n":
+					case "|":
 						this.addCheckpoint(xPos);
 						break;
 					default:
@@ -139,7 +126,7 @@ package
 			var floorPiece:Floor = Floor.createFloorPiece(xPosition);
 			floor.add(floorPiece);
 			
-		}//will_youFukme:; at sum poinT 2ni:ght = true;
+		}
 		
 		private function addWall(low:Boolean, xPosition:int) 
 		{ 
@@ -165,15 +152,16 @@ package
 		}
 		private function addCheckpoint(xPosition:int) 
 		{ 
-			checkpoint = new CheckPoint(xPosition);
+			var checkpoint:CheckPoint = new CheckPoint(xPosition);
 			checkpoints.add(checkpoint);
+			trace(checkpoint);
 		}
 		
 		/********************************************************************
 		 * This is my cheesy way of creating levels. 
 		 * There should be some sort of file loading system, I think.
 		 */		
-		private function loadLevel1():void
+		/*private function loadLevel1():void
 		{
 			trace("LOADING LEVEL 1");
 			
@@ -385,7 +373,7 @@ package
 			
 			
 			
-		}
+		}*/
 		
 		
 		public function resetToCheckpoint( checkpointPos:Number ):void 
@@ -394,13 +382,13 @@ package
 			// THIS WILL NO LONGER LOAD CHECKPOINTS!!!
 			// ***************************************
 			
-			
-			loadLevel("____________________________________________________'______________.______________'______________.______________'______________.____________.____________'____________'______________=_____________.______________'___________=_____________=____________=_____________'__________.__________'_________/n"
+			loadLevel(GameState.LEVEL_STRING);
+			/*loadLevel("____________________________________________________'______________.______________'______________.______________'______________.____________.____________'____________'______________=_____________.______________'___________=_____________=____________=_____________'__________.__________'_________/n"
 +"___________________________________________<````````______=______<````````______=______=______<``````````__'____.____'____<````````````___'___.___'___.___'___.____<``````````______=______=____!___/n"
 +"__________________________'___.___'___.______'___.___'___.________=_____=____=_________!__________>``````````______________w________________v____=________v____________w________v____________>``````______=_____/n"
 +"________<``````_<``````_<``````________=________=________/``````````````````________!______!______>``````````````````________x________x_____o______________x______________<``````__``````__``````__``````__``````__``````__________w___/n"
 +"________'____.____'____.____'____.____'____.____'____.____'____.____'____.____'____.____'____.____'____.__________=__________=__________=__________/n"
-+"_____;");
++"_____;");*/
 			//loadLevel(levelNumber);
 			
 		}
